@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
+import RangeDistPlotContainer from "./RangeDistPlotContainer";
+import SmallMultipleContainer from "./SmallMultipleContainer";
+import TooltipBox from "./TooltipBox";
 
 function App() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const url =
+        "https://d14wlfuexuxgcm.cloudfront.net/covid/parsed_for_js_mcmc.json.gz?v=12";
+      const result = await axios(url);
+      setData(result.data);
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data) return <div>...loading</div>;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RangeDistPlotContainer data={data.state_data} />
+      <SmallMultipleContainer data={data.state_data} />
     </div>
   );
 }

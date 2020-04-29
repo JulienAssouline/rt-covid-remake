@@ -18,7 +18,6 @@ function RangeDistPlotContainer({ data }) {
   }
 
   function handleChange(v) {
-    console.log(`selected ${v}`);
     setValue(v);
   }
 

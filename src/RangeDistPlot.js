@@ -36,8 +36,6 @@ function RangeDistPlot({ data, week, dropValue }) {
     return result;
   }
 
-  data.shift();
-
   data.sort((a, b) => getValue(a, "r0") - getValue(b, "r0"));
 
   const xScale = scaleBand()

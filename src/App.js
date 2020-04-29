@@ -3,10 +3,10 @@ import "./App.css";
 import axios from "axios";
 import RangeDistPlotContainer from "./RangeDistPlotContainer";
 import SmallMultipleContainer from "./SmallMultipleContainer";
-import TooltipBox from "./TooltipBox";
 
 function App() {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,17 +14,20 @@ function App() {
         "https://d14wlfuexuxgcm.cloudfront.net/covid/parsed_for_js_mcmc.json.gz?v=12";
       const result = await axios(url);
       setData(result.data);
+      setLoading(false);
     };
 
     fetchData();
   }, []);
 
-  if (!data) return <div>...loading</div>;
+  if (loading) return <div>...loading</div>;
+
+  const dataFiltered = data.state_data.filter((d) => d.i !== "US");
 
   return (
     <div className="App">
-      <RangeDistPlotContainer data={data.state_data} />
-      <SmallMultipleContainer data={data.state_data} />
+      <RangeDistPlotContainer data={dataFiltered} />
+      <SmallMultipleContainer data={dataFiltered} />
     </div>
   );
 }

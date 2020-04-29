@@ -2,7 +2,15 @@ import React from "react";
 import { scaleLinear, scaleBand } from "d3-scale";
 import AxisLeft from "./AxisLeft";
 
-function RangeDistPlot({ data, week }) {
+import {
+  Northeast,
+  tenLargestStates,
+  West,
+  Midwest,
+  South,
+} from "./utils/helpers";
+
+function RangeDistPlot({ data, week, dropValue }) {
   const w = window.innerWidth - 100,
     h = 480;
 
@@ -42,6 +50,26 @@ function RangeDistPlot({ data, week }) {
     return getValue(d, "r0") <= 1 ? "rgb(53, 179, 46)" : "rgb(235, 83, 88)";
   }
 
+  function handleColor(state, color) {
+    if (dropValue === "all") return color;
+    else if (dropValue === "ten largest") {
+      if (tenLargestStates.includes(state)) return color;
+      else return "lightgrey";
+    } else if (dropValue === "northeast") {
+      if (Northeast.includes(state)) return color;
+      else return "lightgrey";
+    } else if (dropValue === "west") {
+      if (West.includes(state)) return color;
+      else return "lightgrey";
+    } else if (dropValue === "midwest") {
+      if (Midwest.includes(state)) return color;
+      else return "lightgrey";
+    } else if (dropValue === "south") {
+      if (South.includes(state)) return color;
+      else return "lightgrey";
+    } else return color;
+  }
+
   const circles = data.map((d, i) => (
     <g key={i}>
       <g transform={"translate(7,0)"}>
@@ -53,8 +81,8 @@ function RangeDistPlot({ data, week }) {
             yScale(getValue(d, "h90")) - yScale(getValue(d, "l90"))
           )}
           style={{
-            fill: colorCheck(d),
-            stroke: colorCheck(d),
+            fill: handleColor(d.i, colorCheck(d)),
+            stroke: handleColor(d.i, colorCheck(d)),
             opacity: 0.1,
           }}
           rx={4}
@@ -67,8 +95,8 @@ function RangeDistPlot({ data, week }) {
             yScale(getValue(d, "h50")) - yScale(getValue(d, "l50"))
           )}
           style={{
-            fill: colorCheck(d),
-            stroke: colorCheck(d),
+            fill: handleColor(d.i, colorCheck(d)),
+            stroke: handleColor(d.i, colorCheck(d)),
             strokeWidth: 1.5,
             opacity: 0.2,
           }}
@@ -84,14 +112,18 @@ function RangeDistPlot({ data, week }) {
           rx={9}
           style={{
             fill: "white",
-            stroke: colorCheck(d),
+            stroke: handleColor(d.i, colorCheck(d)),
             strokeWidth: 1.5,
           }}
         />
         <text
           x={xScale(d.i)}
           y={yScale(getValue(d, "r0"))}
-          style={{ fill: colorCheck(d), fontSize: 10, fontWeight: 500 }}
+          style={{
+            fill: handleColor(d.i, colorCheck(d)),
+            fontSize: 10,
+            fontWeight: 500,
+          }}
           dy={12}
           dx={4}
         >

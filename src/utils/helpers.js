@@ -12,3 +12,78 @@ export const monthNames = [
   "Nov",
   "Dec",
 ];
+
+export const tenLargestStates = [
+  "OH",
+  "FL",
+  "TX",
+  "PA",
+  "GA",
+  "CA",
+  "NC",
+  "MI",
+  "NY",
+  "IL",
+];
+export const Northeast = [
+  "VT",
+  "NJ",
+  "CT",
+  "MA",
+  "DE",
+  "ME",
+  "PA",
+  "MD",
+  "NH",
+  "RI",
+  "NY",
+];
+
+export const West = [
+  "MT",
+  "HI",
+  "ID",
+  "WA",
+  "OR",
+  "AK",
+  "CO",
+  "NV",
+  "WY",
+  "AZ",
+  "CA",
+  "UT",
+  "NM",
+];
+
+export const Midwest = [
+  "OH",
+  "MO",
+  "SD",
+  "IN",
+  "ND",
+  "WI",
+  "MI",
+  "MN",
+  "IL",
+  "IA",
+  "KS",
+  "NE",
+];
+
+export const South = [
+  "LA",
+  "SC",
+  "FL",
+  "AL",
+  "WV",
+  "TX",
+  "OK",
+  "GA",
+  "VA",
+  "DC",
+  "MS",
+  "NC",
+  "AR",
+  "KY",
+  "TN",
+];

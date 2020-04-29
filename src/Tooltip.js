@@ -4,7 +4,7 @@ import { clientPoint } from "d3-selection";
 import { bisector } from "d3-array";
 import { monthNames } from "./utils/helpers";
 
-function Tooltip({ height, width, yScale, xScale, data, parseTime }) {
+function Tooltip({ height, width, xScale, data, parseTime }) {
   const [display, setDisplay] = useState(false);
   const [lineOpacity, setLineOpacity] = useState(0);
   const [lineX, setLineX] = useState(0);

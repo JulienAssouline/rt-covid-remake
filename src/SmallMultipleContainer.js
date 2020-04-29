@@ -88,7 +88,6 @@ function SmallMultipleContainer({ data }) {
         <Tooltip
           width={width}
           height={height}
-          yScale={yScale}
           xScale={xScale}
           data={d["r0"]}
           parseTime={parseTime}

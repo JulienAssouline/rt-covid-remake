@@ -8,6 +8,8 @@ import AxisBottom from "./AxisBottom";
 import LinearGradient from "./LinearGradient";
 import Tooltip from "./Tooltip";
 
+import { statesLabels } from "./utils/helpers";
+
 function SmallMultipleContainer({ data }) {
   const w = 500,
     h = 260;
@@ -59,8 +61,8 @@ function SmallMultipleContainer({ data }) {
   const lineCharts = data.map((d, i) => (
     <svg id="tooltip" key={i} width={w} height={h}>
       <g transform={`translate(${margin.left},${margin.top})`}>
-        <text x={-20} y={-20}>
-          {d.i}
+        <text style={{ fontWeight: "bold" }} x={-20} y={-20}>
+          {statesLabels[i]}
         </text>
         <text x={width - 30} y={-20}>
           {d["r0"][d["r0"].length - 1].c["r0"].toFixed(2)}
@@ -91,6 +93,13 @@ function SmallMultipleContainer({ data }) {
           xScale={xScale}
           data={d["r0"]}
           parseTime={parseTime}
+        />
+        <rect
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          style={{ opacity: 1, fill: "none", stroke: "#eee" }}
         />
       </g>
     </svg>

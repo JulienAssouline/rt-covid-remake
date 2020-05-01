@@ -24,6 +24,9 @@ function RangeDistPlot({ data, week, dropValue }) {
   const width = w - margin.right - margin.left,
     height = h - margin.top - margin.bottom;
 
+  const ovalWidth = 24;
+  const ovalHeight = 18;
+
   function getValue(d, value) {
     const result =
       week === "Yesterday"
@@ -85,6 +88,7 @@ function RangeDistPlot({ data, week, dropValue }) {
           }}
           rx={4}
         />
+        />
         <rect
           x={xScale(d.i)}
           y={yScale(getValue(d, "h50"))}
@@ -101,12 +105,10 @@ function RangeDistPlot({ data, week, dropValue }) {
           rx={4}
         />
       </g>
-      <g>
+      <g transform={`translate(${xScale(d.i)},${yScale(getValue(d, "r0"))})`}>
         <rect
-          width={24}
-          height={18}
-          x={xScale(d.i)}
-          y={yScale(getValue(d, "r0"))}
+          width={ovalWidth}
+          height={ovalHeight}
           rx={9}
           style={{
             fill: "white",
@@ -115,15 +117,15 @@ function RangeDistPlot({ data, week, dropValue }) {
           }}
         />
         <text
-          x={xScale(d.i)}
-          y={yScale(getValue(d, "r0"))}
           style={{
             fill: handleColor(d.i, colorCheck(d)),
             fontSize: 10,
             fontWeight: 500,
           }}
-          dy={12}
-          dx={4}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          dy={ovalHeight / 2 + 1}
+          dx={ovalWidth / 2}
         >
           {d.i}
         </text>

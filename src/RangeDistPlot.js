@@ -1,6 +1,7 @@
 import React from "react";
 import { scaleLinear, scaleBand } from "d3-scale";
 import AxisLeft from "./AxisLeft";
+import { motion } from "framer-motion";
 
 import {
   Northeast,
@@ -55,26 +56,29 @@ function RangeDistPlot({ data, week, dropValue }) {
     if (dropValue === "all") return color;
     else if (dropValue === "ten largest") {
       if (tenLargestStates.includes(state)) return color;
-      else return "lightgrey";
+      else return "rgb(211,211,211)";
     } else if (dropValue === "northeast") {
       if (Northeast.includes(state)) return color;
-      else return "lightgrey";
+      else return "rgb(211,211,211)";
     } else if (dropValue === "west") {
       if (West.includes(state)) return color;
-      else return "lightgrey";
+      else return "rgb(211,211,211)";
     } else if (dropValue === "midwest") {
       if (Midwest.includes(state)) return color;
-      else return "lightgrey";
+      else return "rgb(211,211,211)";
     } else if (dropValue === "south") {
       if (South.includes(state)) return color;
-      else return "lightgrey";
+      else return "rgb(211,211,211)";
     } else return color;
   }
 
   const circles = data.map((d, i) => (
     <g key={i}>
       <g transform={"translate(7,0)"}>
-        <rect
+        <motion.rect
+          initial={{ fill: handleColor(d.i, colorCheck(d)) }}
+          animate={{ fill: handleColor(d.i, colorCheck(d)) }}
+          transition={{ duration: 1 }}
           x={xScale(d.i)}
           y={yScale(getValue(d, "h90"))}
           width={10}
@@ -82,14 +86,16 @@ function RangeDistPlot({ data, week, dropValue }) {
             yScale(getValue(d, "h90")) - yScale(getValue(d, "l90"))
           )}
           style={{
-            fill: handleColor(d.i, colorCheck(d)),
             stroke: handleColor(d.i, colorCheck(d)),
             opacity: 0.1,
           }}
           rx={4}
         />
         />
-        <rect
+        <motion.rect
+          initial={{ fill: handleColor(d.i, colorCheck(d)) }}
+          animate={{ fill: handleColor(d.i, colorCheck(d)) }}
+          transition={{ duration: 1 }}
           x={xScale(d.i)}
           y={yScale(getValue(d, "h50"))}
           width={10}
@@ -97,7 +103,6 @@ function RangeDistPlot({ data, week, dropValue }) {
             yScale(getValue(d, "h50")) - yScale(getValue(d, "l50"))
           )}
           style={{
-            fill: handleColor(d.i, colorCheck(d)),
             stroke: handleColor(d.i, colorCheck(d)),
             strokeWidth: 1.5,
             opacity: 0.2,
@@ -106,19 +111,23 @@ function RangeDistPlot({ data, week, dropValue }) {
         />
       </g>
       <g transform={`translate(${xScale(d.i)},${yScale(getValue(d, "r0"))})`}>
-        <rect
+        <motion.rect
+          initial={{ stroke: handleColor(d.i, colorCheck(d)) }}
+          animate={{ stroke: handleColor(d.i, colorCheck(d)) }}
+          transition={{ duration: 1 }}
           width={ovalWidth}
           height={ovalHeight}
           rx={9}
           style={{
             fill: "white",
-            stroke: handleColor(d.i, colorCheck(d)),
             strokeWidth: 1.5,
           }}
         />
-        <text
+        <motion.text
+          initial={{ fill: handleColor(d.i, colorCheck(d)) }}
+          animate={{ fill: handleColor(d.i, colorCheck(d)) }}
+          transition={{ duration: 1 }}
           style={{
-            fill: handleColor(d.i, colorCheck(d)),
             fontSize: 10,
             fontWeight: 500,
           }}
@@ -128,7 +137,7 @@ function RangeDistPlot({ data, week, dropValue }) {
           dx={ovalWidth / 2}
         >
           {d.i}
-        </text>
+        </motion.text>
       </g>
     </g>
   ));

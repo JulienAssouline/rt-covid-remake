@@ -6,7 +6,10 @@ function AxisLeft({ yScale, width, count }) {
   const axis = yScale.ticks(count).map((d, i) => (
     <g key={i} className="y-tick">
       <line
-        style={{ stroke: "#e4e5eb", opacity: 0.5 }}
+        style={{
+          stroke: d === 1 ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.05)",
+          strokeWidth: 0.5,
+        }}
         y1={yScale(d)}
         y2={yScale(d)}
         x1={0}

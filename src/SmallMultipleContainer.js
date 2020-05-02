@@ -61,7 +61,7 @@ function SmallMultipleContainer({ data }) {
   const lineCharts = data.map((d, i) => (
     <svg id="tooltip" key={i} width={w} height={h}>
       <g transform={`translate(${margin.left},${margin.top})`}>
-        <text style={{ fontWeight: "bold" }} x={-20} y={-20}>
+        <text style={{ fontWeight: "bold" }} x={0} y={-20}>
           {statesLabels[i]}
         </text>
         <text x={width - 30} y={-20}>

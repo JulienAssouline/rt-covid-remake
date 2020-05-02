@@ -7,7 +7,7 @@ function TooltipBox({ x, y, info, display }) {
       <div
         style={{
           position: "absolute",
-          backgroundColor: "rgba(255,255,255,.5)",
+          backgroundColor: "rgba(255,255,255,.7)",
           opacity: 1,
           padding: 10,
           width: 109,

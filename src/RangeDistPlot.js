@@ -76,11 +76,17 @@ function RangeDistPlot({ data, week, dropValue }) {
     <g key={i}>
       <g transform={"translate(7,0)"}>
         <motion.rect
-          initial={{ fill: handleColor(d.i, colorCheck(d)) }}
-          animate={{ fill: handleColor(d.i, colorCheck(d)) }}
+          initial={{
+            x: xScale(d.i),
+            y: yScale(getValue(d, "h90")),
+            fill: handleColor(d.i, colorCheck(d)),
+          }}
+          animate={{
+            x: xScale(d.i),
+            y: yScale(getValue(d, "h90")),
+            fill: handleColor(d.i, colorCheck(d)),
+          }}
           transition={{ duration: 1 }}
-          x={xScale(d.i)}
-          y={yScale(getValue(d, "h90"))}
           width={10}
           height={Math.abs(
             yScale(getValue(d, "h90")) - yScale(getValue(d, "l90"))
@@ -93,11 +99,17 @@ function RangeDistPlot({ data, week, dropValue }) {
         />
         />
         <motion.rect
-          initial={{ fill: handleColor(d.i, colorCheck(d)) }}
-          animate={{ fill: handleColor(d.i, colorCheck(d)) }}
+          initial={{
+            x: xScale(d.i),
+            y: yScale(getValue(d, "h50")),
+            fill: handleColor(d.i, colorCheck(d)),
+          }}
+          animate={{
+            x: xScale(d.i),
+            y: yScale(getValue(d, "h50")),
+            fill: handleColor(d.i, colorCheck(d)),
+          }}
           transition={{ duration: 1 }}
-          x={xScale(d.i)}
-          y={yScale(getValue(d, "h50"))}
           width={10}
           height={Math.abs(
             yScale(getValue(d, "h50")) - yScale(getValue(d, "l50"))
@@ -110,7 +122,17 @@ function RangeDistPlot({ data, week, dropValue }) {
           rx={4}
         />
       </g>
-      <g transform={`translate(${xScale(d.i)},${yScale(getValue(d, "r0"))})`}>
+      <motion.g
+        initial={{
+          translateX: xScale(d.i),
+          translateY: yScale(getValue(d, "r0")),
+        }}
+        animate={{
+          translateX: xScale(d.i),
+          translateY: yScale(getValue(d, "r0")),
+        }}
+        transition={{ duration: 1 }}
+      >
         <motion.rect
           initial={{ stroke: handleColor(d.i, colorCheck(d)) }}
           animate={{ stroke: handleColor(d.i, colorCheck(d)) }}
@@ -138,7 +160,7 @@ function RangeDistPlot({ data, week, dropValue }) {
         >
           {d.i}
         </motion.text>
-      </g>
+      </motion.g>
     </g>
   ));
 

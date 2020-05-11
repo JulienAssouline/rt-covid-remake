@@ -7,6 +7,10 @@ import AxisLeft from "./AxisLeft";
 import AxisBottom from "./AxisBottom";
 import LinearGradient from "./LinearGradient";
 import Tooltip from "./Tooltip";
+import LineChart from "./LineChart";
+import Path from "./Path";
+import Title from "./Title";
+import Rect from "./Rect";
 
 import { statesLabels } from "./utils/helpers";
 
@@ -55,50 +59,54 @@ function SmallMultipleContainer({ data }) {
   );
 
   const lineCharts = data.map((d, i) => (
-    <svg id="tooltip" key={i} width={w} height={h}>
-      <g transform={`translate(${margin.left},${margin.top})`}>
-        <text style={{ fontWeight: "bold" }} x={0} y={-20}>
-          {statesLabels[i]}
-        </text>
-        <text x={width - 30} y={-20}>
-          {d["r0"][d["r0"].length - 1].c["r0"].toFixed(2)}
-        </text>
-        <AxisLeft yScale={yScale} width={width} count={5} />
-        <AxisBottom xScale={xScale} height={height} />
-        <LinearGradient state={d.i} height={height} yScale={yScale} />
-        <path
-          d={pathArea(d["r0"])}
-          style={{
-            fill: `url(#states-${d.i})`,
-            stroke: `url(#states-${d.i})`,
-            strokeWidth: 3,
-            opacity: 0.08,
-          }}
-        />
-        <path
-          d={path(d["r0"])}
-          style={{
-            fill: "none",
-            stroke: `url(#states-${d.i})`,
-            strokeWidth: 1.5,
-          }}
-        />
-        <Tooltip
-          width={width}
-          height={height}
-          xScale={xScale}
-          data={d["r0"]}
-          parseTime={parseTime}
-        />
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          style={{ opacity: 1, fill: "none", stroke: "#eee" }}
-        />
-      </g>
-    </svg>
+    <LineChart w={w} h={h} margin={margin}>
+      <Title
+        textLabel={statesLabels[i]}
+        x={0}
+        y={-20}
+        styles={{ fontWeight: "bold" }}
+      />
+      <Title
+        textLabel={d["r0"][d["r0"].length - 1].c["r0"].toFixed(2)}
+        x={width - 30}
+        y={-20}
+        styles={{ fontWeight: "bold" }}
+      />
+      <AxisLeft yScale={yScale} width={width} count={5} />
+      <AxisBottom xScale={xScale} height={height} />
+      <LinearGradient state={d.i} height={height} yScale={yScale} />
+      <Path
+        pathFun={pathArea(d["r0"])}
+        styles={{
+          fill: `url(#states-${d.i})`,
+          stroke: `url(#states-${d.i})`,
+          strokeWidth: 3,
+          opacity: 0.08,
+        }}
+      />
+      <Path
+        pathFun={path(d["r0"])}
+        styles={{
+          fill: "none",
+          stroke: `url(#states-${d.i})`,
+          strokeWidth: 1.5,
+        }}
+      />
+      <Tooltip
+        width={width}
+        height={height}
+        xScale={xScale}
+        data={d["r0"]}
+        parseTime={parseTime}
+      />
+      <Rect
+        x={0}
+        y={0}
+        width={width}
+        height={height}
+        styles={{ opacity: 1, fill: "none", stroke: "#eee" }}
+      />
+    </LineChart>
   ));
 
   return <div>{lineCharts}</div>;

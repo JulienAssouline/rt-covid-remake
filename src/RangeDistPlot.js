@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { scaleLinear, scaleBand } from "d3-scale";
 import AxisLeft from "./AxisLeft";
 import { motion } from "framer-motion";
@@ -39,8 +39,6 @@ function RangeDistPlot({ data, week, dropValue }) {
         : null;
     return result;
   }
-
-  data.sort((a, b) => getValue(a, "r0") - getValue(b, "r0"));
 
   const xScale = scaleBand()
     .domain(data.map((d) => d.i))

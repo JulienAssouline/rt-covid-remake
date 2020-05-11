@@ -24,6 +24,18 @@ function App() {
 
   const dataFiltered = data.state_data.filter((d) => d.i !== "US");
 
+  function sortByState(a, b) {
+    if (a.i < b.i) {
+      return -1;
+    }
+    if (a.i > b.i) {
+      return 1;
+    }
+    return 0;
+  }
+
+  dataFiltered.sort(sortByState);
+
   return (
     <div className="App">
       <RangeDistPlotContainer data={dataFiltered} />

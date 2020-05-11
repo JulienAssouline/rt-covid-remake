@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { line, area } from "d3-shape";
 import { extent } from "d3-array";
 import { scaleLinear, scaleTime } from "d3-scale";
@@ -26,18 +26,6 @@ function SmallMultipleContainer({ data }) {
 
   const parseTime = timeParse("%Y-%m-%d");
 
-  function sortByState(a, b) {
-    if (a.i < b.i) {
-      return -1;
-    }
-    if (a.i > b.i) {
-      return 1;
-    }
-    return 0;
-  }
-
-  data.sort(sortByState);
-
   const xScale = scaleTime()
     .domain([
       new Date("March 02 2020"),
@@ -47,16 +35,24 @@ function SmallMultipleContainer({ data }) {
 
   const yScale = scaleLinear().domain([0, 4.5]).range([height, 0]);
 
-  const path = line()
-    .x((el) => {
-      return xScale(parseTime(el.d));
-    })
-    .y((el) => yScale(el.c["r0"]));
+  const path = useMemo(
+    () =>
+      line()
+        .x((el) => {
+          return xScale(parseTime(el.d));
+        })
+        .y((el) => yScale(el.c["r0"])),
+    [parseTime, xScale, yScale]
+  );
 
-  const pathArea = area()
-    .x((el) => xScale(parseTime(el.d)))
-    .y0((d) => yScale(d.c["l90"]))
-    .y1((d) => yScale(d.c["h90"]));
+  const pathArea = useMemo(
+    () =>
+      area()
+        .x((el) => xScale(parseTime(el.d)))
+        .y0((d) => yScale(d.c["l90"]))
+        .y1((d) => yScale(d.c["h90"])),
+    [parseTime, xScale, yScale]
+  );
 
   const lineCharts = data.map((d, i) => (
     <svg id="tooltip" key={i} width={w} height={h}>
